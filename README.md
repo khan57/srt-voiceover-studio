@@ -272,6 +272,7 @@ core/
   tts.py                   Async Edge-TTS worker pool with retry
   audio_processor.py       Timeline assembly, atempo fit, ducking, mastering
 tests/                     Offline test suite (no network required)
+requirements-dev.txt       Test-only dependencies (pytest)
 samples/                   Demo Hindi and English subtitle files
 outputs/                   Generated .mp3 files and .credits.txt
 .music_cache/              Tracks downloaded from the music library
@@ -280,11 +281,12 @@ outputs/                   Generated .mp3 files and .credits.txt
 Run the tests with:
 
 ```bash
-./.venv/bin/python -m pytest
+uv pip install --python .venv/bin/python -r requirements-dev.txt && ./.venv/bin/python -m pytest
 ```
 
-Tests that hit the live Edge-TTS service are deselected by default. Run them —
-they verify every catalogued voice still exists — with:
+Tests that hit the live Edge-TTS and Openverse services are deselected by
+default. Run them — they verify every catalogued voice still exists and that
+the music search still returns only permitted licences — with:
 
 ```bash
 ./.venv/bin/python -m pytest -m network
@@ -367,11 +369,24 @@ silently narrating mojibake.
 
 ## Contributing
 
-Issues and pull requests are welcome. Before opening a PR:
+Issues and pull requests are welcome. Install the dev dependencies first —
+`pytest` is not a runtime dependency, so it lives in its own file:
 
 ```bash
-./.venv/bin/python -m pytest          # 145 offline tests, no network needed
-./.venv/bin/python -m pytest -m network   # 3 more, checks the live voice/music APIs
+uv pip install --python .venv/bin/python -r requirements-dev.txt
+```
+
+Then run the suite:
+
+```bash
+./.venv/bin/python -m pytest
+```
+
+That is 145 offline tests and needs no internet connection. Three further tests
+check that the live voice and music APIs still behave as expected:
+
+```bash
+./.venv/bin/python -m pytest -m network
 ```
 
 Please keep new behaviour covered by an offline test where possible — the suite

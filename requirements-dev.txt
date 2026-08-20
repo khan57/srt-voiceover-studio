@@ -1,0 +1,6 @@
+# Development dependencies. Install on top of requirements.txt to run the
+# test suite:
+#     uv pip install --python .venv/bin/python -r requirements-dev.txt
+-r requirements.txt
+
+pytest>=8.0,<9
