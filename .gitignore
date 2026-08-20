@@ -1,0 +1,24 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Generated audio
+outputs/*
+!outputs/.gitkeep
+*.mp3
+!samples/*.mp3
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# OS
+.DS_Store
+
+# Downloaded background music
+.music_cache/
+*.credits.txt

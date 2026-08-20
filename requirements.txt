@@ -1,0 +1,23 @@
+# --- SRT Voiceover Studio :: runtime dependencies -------------------------
+# Tested on Python 3.11 (recommended). See README for the 3.13+ caveat.
+
+# Web UI. Pinned to the 5.x line: gr.themes.Ocean and the Blocks/Progress
+# APIs used here are stable there, and 6.x carries breaking changes.
+gradio>=5.44,<6
+
+# Neural TTS via Microsoft Edge's voice service. No API key required.
+edge-tts>=7.2,<8
+
+# SRT parsing (UTF-8 / Devanagari safe).
+pysrt==1.1.2
+
+# Audio manipulation. NOTE: pydub imports the stdlib `audioop` module, which
+# was removed in Python 3.13 (PEP 594) -- see the marker below.
+pydub==0.25.1
+
+# Used to build the BGM ducking gain envelope in a single vectorised pass.
+numpy>=1.26,<3
+
+# Backport of the `audioop` module removed from the stdlib in Python 3.13.
+# Without this, `import pydub` fails outright on 3.13/3.14.
+audioop-lts>=0.2.1 ; python_version >= "3.13"
